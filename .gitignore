@@ -1,6 +1,12 @@
+# project files
+.idea/workspace.xml
+.idea/tasks.xml
+
+# build output
+target/
 *.class
 
-# Package Files #
+# artifacts
 *.jar
 *.war
 *.ear
