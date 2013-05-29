@@ -21,28 +21,28 @@ public class RythmTemplate implements Result {
     private static RythmEngine engine = null;
 
     private String view;
-    private List<Object> objects = new ArrayList<>();
+    private Map<String, Object> objects = new HashMap<>();
 
     public RythmTemplate(String view) {
         this.view = view;
     }
 
     @Override
-    public RythmTemplate add(Object o) {
-        objects.add(o);
+    public RythmTemplate model(String key, Object object) {
+        objects.put(key, object);
         return this;
     }
 
     @Override
-    public RythmTemplate add(List<Object> objects) {
-        objects.addAll(objects);
+    public RythmTemplate model(Map<String, Object> objects) {
+        objects.putAll(objects);
         return this;
     }
 
     @Override
     public void render(String contentPath, OutputStream out) {
         Path template = Paths.get(contentPath).resolve(view);
-        getRythmEngine().render(out, template.toFile(), objects.toArray());
+        getRythmEngine().render(out, template.toFile(), objects);
     }
 
     private RythmEngine getRythmEngine() {

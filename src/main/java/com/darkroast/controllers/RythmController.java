@@ -17,7 +17,6 @@ public class RythmController implements Controller {
 
     @Path("index")
     public Result index() {
-        return view("index.html", "Rythm");
+        return view("index.html").model("what", "Rythm");
     }
-
 }

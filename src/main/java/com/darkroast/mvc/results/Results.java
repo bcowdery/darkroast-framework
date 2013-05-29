@@ -12,11 +12,5 @@ public class Results {
         return new RythmTemplate(view);
     }
 
-    public static Result view(String view, Object model) {
-        return new RythmTemplate(view).add(model);
-    }
 
-    public static Result view(String view, Object model, Object... models) {
-        return new RythmTemplate(view).add(model).add(models);
-    }
 }
