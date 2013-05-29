@@ -1,4 +1,4 @@
-package com.darkroast.mvc;
+package com.darkroast.dispatch;
 
 /**
  * Route information about the current request.

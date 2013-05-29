@@ -2,9 +2,9 @@ package com.darkroast.controllers;
 
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.annotations.Path;
-import com.darkroast.mvc.results.Result;
+import com.darkroast.results.Result;
 
-import static com.darkroast.mvc.results.Results.*;
+import static com.darkroast.results.Results.*;
 
 /**
  * RythmController
@@ -17,6 +17,6 @@ public class RythmController implements Controller {
 
     @Path("index")
     public Result index() {
-        return view("index.html").model("what", "Rythm");
+        return view("index.html").param("what", "Rythm");
     }
 }

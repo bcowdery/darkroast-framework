@@ -1,4 +1,4 @@
-package com.darkroast.mvc.results;
+package com.darkroast.results;
 
 /**
  * Static helpers for returning results from an action.

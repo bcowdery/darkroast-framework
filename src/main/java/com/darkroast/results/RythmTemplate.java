@@ -1,13 +1,9 @@
-package com.darkroast.mvc.results;
+package com.darkroast.results;
 
 import org.rythmengine.RythmEngine;
 
 import java.io.OutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,33 +17,34 @@ public class RythmTemplate implements Result {
     private static RythmEngine engine = null;
 
     private String view;
-    private Map<String, Object> objects = new HashMap<>();
+    private Map<String, Object> params = new HashMap<>();
 
     public RythmTemplate(String view) {
         this.view = view;
     }
 
     @Override
-    public RythmTemplate model(String key, Object object) {
-        objects.put(key, object);
+    public RythmTemplate param(String key, Object object) {
+        params.put(key, object);
         return this;
     }
 
     @Override
-    public RythmTemplate model(Map<String, Object> objects) {
+    public RythmTemplate params(Map<String, Object> objects) {
         objects.putAll(objects);
         return this;
     }
 
     @Override
     public void render(String contentPath, OutputStream out) {
-        Path template = Paths.get(contentPath).resolve(view);
-        getRythmEngine().render(out, template.toFile(), objects);
+        getRythmEngine(contentPath).render(out, view, params);
     }
 
-    private RythmEngine getRythmEngine() {
+    private RythmEngine getRythmEngine(String contentPath) {
         if (null == engine) {
             Map<String, Object> conf = new HashMap<>();
+            conf.put("home.template", contentPath);
+
             engine = new RythmEngine(conf);
         }
 

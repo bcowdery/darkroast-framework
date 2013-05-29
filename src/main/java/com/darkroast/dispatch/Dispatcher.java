@@ -1,11 +1,10 @@
 package com.darkroast.dispatch;
 
 import com.darkroast.mvc.Controller;
-import com.darkroast.mvc.Route;
-import com.darkroast.mvc.annotations.Current;
 import com.darkroast.mvc.annotations.Path;
 import com.darkroast.mvc.annotations.PathLiteral;
-import com.darkroast.mvc.results.Result;
+import com.darkroast.results.Result;
+import com.darkroast.results.StringWriter;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Any;
@@ -13,7 +12,9 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
-import java.io.OutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -28,30 +29,45 @@ import java.lang.reflect.Method;
 @RequestScoped
 public class Dispatcher {
 
-    @Inject @Current Route route;
     @Inject @Any Instance<Controller> controllers;
 
     public Dispatcher() {
     }
 
-    public void dispatch(ServletContext servletContext, OutputStream out) {
+    public void dispatch(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
+        Route route = new RouteParser().parseRoute(request.getServletPath());
+
         Annotation path = new PathLiteral(route.getController());
         Controller controller = controllers.select(path).get();
 
         Method action = getActionMethod(controller, route);
-        Result result = null;
+        Object result;
         try {
-            result = (Result) action.invoke(controller);
+            result = action.invoke(controller);
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Cannot access action method");
         } catch (InvocationTargetException e) {
             throw new RuntimeException("Action method does not exist on class!");
         }
 
-        if (result != null) {
-            result.render(servletContext.getRealPath("/content"), out);
+        try {
+            render(response, servletContext, result);
+        } catch (IOException e) {
+            throw new RuntimeException("Error rendering result", e);
         }
     }
+
+    private void render(HttpServletResponse response, ServletContext servletContext, Object result) throws IOException {
+        if (result instanceof Result) {
+            Result out = (Result) result;
+            out.render(servletContext.getRealPath("/"), response.getOutputStream());
+
+        } else {
+            Result out = new StringWriter(result);
+            out.render(servletContext.getRealPath("/"), response.getOutputStream());
+        }
+    }
+
 
     private Method getActionMethod(Controller controller, Route route) {
         for (Method method : controller.getClass().getMethods()) {

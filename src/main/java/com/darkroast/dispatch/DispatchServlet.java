@@ -1,4 +1,4 @@
-package com.darkroast.dispatch.http;
+package com.darkroast.dispatch;
 
 import com.darkroast.dispatch.Dispatcher;
 
@@ -17,12 +17,14 @@ import java.io.IOException;
  * @since 05-29-2013
  */
 @WebServlet("/")
-public class HttpDispatchServlet extends HttpServlet {
+public class DispatchServlet extends HttpServlet {
 
     @Inject Dispatcher dispatcher;
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        dispatcher.dispatch(getServletContext(), resp.getOutputStream());
+    protected void service(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        dispatcher.dispatch(request, response, getServletContext());
     }
 }

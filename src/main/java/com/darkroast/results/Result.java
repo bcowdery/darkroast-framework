@@ -1,7 +1,6 @@
-package com.darkroast.mvc.results;
+package com.darkroast.results;
 
 import java.io.OutputStream;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,21 +12,21 @@ import java.util.Map;
 public interface Result {
 
     /**
-     * Adds an object to the result for rendering.
+     * Adds a parameter to the result for rendering.
      *
      * @param key key
      * @param object object to add
      * @return Result with object added (chainable).
      */
-    Result model(String key, Object object);
+    Result param(String key, Object object);
 
     /**
-     * Adds many objects to the result for rendering.
+     * Adds many parameters to the result for rendering.
      *
      * @param objects list of objects to add.
      * @return Result with object added (chainable).
      */
-    Result model(Map<String, Object> objects);
+    Result params(Map<String, Object> objects);
 
     /**
      * Render the result to a human readable format.
