@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="darkroast-example-webapp:war">
+    <output-path>$PROJECT_DIR$/example/target</output-path>
+    <root id="archive" name="darkroast-example-webapp-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="darkroast-example-webapp:war exploded" />
+    </root>
+  </artifact>
+</component>

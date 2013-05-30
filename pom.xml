@@ -5,9 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.darkroast</groupId>
-    <artifactId>darkroast-parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>darkroast-parent</artifactId>    
     <version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
     <name>darkroast parent project</name>
 
     <modules>
