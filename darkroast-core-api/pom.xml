@@ -12,12 +12,12 @@
     </parent>
 
     <groupId>com.darkroast</groupId>
-    <artifactId>darkroast-core-impl</artifactId>
+    <artifactId>darkroast-core-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>darkroast core impl</name>
-    <description>Darkroast core implementation.</description>
+    <name>darkroast core api</name>
+    <description>Darkroast core API interfaces and classes.</description>
 
 
     <properties>

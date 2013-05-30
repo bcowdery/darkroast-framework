@@ -22,11 +22,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="darkroast-framework" />
+        <module name="darkroast-core-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="darkroast-core-api" target="1.7" />
+      <module name="darkroast-core-impl" target="1.7" />
       <module name="darkroast-framework" target="1.7" />
+      <module name="darkroast-parent" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
