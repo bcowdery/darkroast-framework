@@ -4,7 +4,7 @@ import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.annotations.Path;
 import com.darkroast.mvc.annotations.PathLiteral;
 import com.darkroast.results.Result;
-import com.darkroast.results.StringWriter;
+import com.darkroast.results.RythmTemplate;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Any;
@@ -40,6 +40,7 @@ public class Dispatcher {
         Annotation path = new PathLiteral(route.getController());
         Controller controller = controllers.select(path).get();
 
+        // try and invoke action
         Method action = getActionMethod(controller, route);
         Object result;
         try {
@@ -50,24 +51,21 @@ public class Dispatcher {
             throw new RuntimeException("Action method does not exist on class!");
         }
 
-        try {
-            render(response, servletContext, result);
-        } catch (IOException e) {
-            throw new RuntimeException("Error rendering result", e);
+
+        // render result
+        if (result != null) {
+            Result out = result instanceof Result
+                    ? (Result) result
+                    : new RythmTemplate("@result").param("result", result);
+
+            try {
+                out.render(servletContext.getRealPath("/"), response.getOutputStream());
+
+            } catch (IOException e) {
+                throw new RuntimeException("Error rendering result", e);
+            }
         }
     }
-
-    private void render(HttpServletResponse response, ServletContext servletContext, Object result) throws IOException {
-        if (result instanceof Result) {
-            Result out = (Result) result;
-            out.render(servletContext.getRealPath("/"), response.getOutputStream());
-
-        } else {
-            Result out = new StringWriter(result);
-            out.render(servletContext.getRealPath("/"), response.getOutputStream());
-        }
-    }
-
 
     private Method getActionMethod(Controller controller, Route route) {
         for (Method method : controller.getClass().getMethods()) {
