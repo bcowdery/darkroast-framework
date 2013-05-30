@@ -7,7 +7,7 @@
 
     <parent>
         <groupId>com.darkroast</groupId>
-        <artifactId>doulaco-parent</artifactId>
+        <artifactId>darkroast-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -26,6 +26,13 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.darkroast</groupId>
+            <artifactId>darkroast-core-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- Java EE 6 web profile -->
         <dependency>
             <groupId>javax.enterprise</groupId>

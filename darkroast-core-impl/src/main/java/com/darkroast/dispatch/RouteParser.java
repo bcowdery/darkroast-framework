@@ -1,12 +1,13 @@
 package com.darkroast.dispatch;
 
 import com.darkroast.config.Application;
+import com.darkroast.mvc.Route;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parses the current request path and determines the {@link Route} for the request
+ * Parses the current request path and determines the {@link com.darkroast.mvc.Route} for the request
  * to be dispatched to.
  *
  * @author Brian Cowdery

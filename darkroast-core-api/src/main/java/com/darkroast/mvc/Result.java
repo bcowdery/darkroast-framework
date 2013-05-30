@@ -1,4 +1,4 @@
-package com.darkroast.results;
+package com.darkroast.mvc;
 
 import java.io.OutputStream;
 import java.util.Map;

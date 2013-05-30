@@ -1,5 +1,7 @@
 package com.darkroast.results;
 
+import com.darkroast.mvc.Result;
+
 /**
  * Static helpers for returning results from an action.
  *
@@ -11,6 +13,4 @@ public class Results {
     public static Result view(String view) {
         return new RythmTemplate(view);
     }
-
-
 }

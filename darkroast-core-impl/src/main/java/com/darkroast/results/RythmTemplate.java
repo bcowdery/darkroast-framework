@@ -1,5 +1,6 @@
 package com.darkroast.results;
 
+import com.darkroast.mvc.Result;
 import org.rythmengine.RythmEngine;
 
 import java.io.OutputStream;

@@ -1,4 +1,4 @@
-package com.darkroast.mvc.annotations;
+package com.darkroast.literals;
 
 import javax.enterprise.util.AnnotationLiteral;
 

@@ -9,6 +9,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="darkroast-core-api" />
+    <orderEntry type="library" name="Maven: commons-configuration:commons-configuration:1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.rythmengine:rythm-engine:1.0-b8" level="project" />
+    <orderEntry type="library" name="Maven: javax:javaee-web-api:6.0" level="project" />
   </component>
 </module>
 

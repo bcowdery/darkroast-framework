@@ -13,7 +13,7 @@ Everything is a Bean with Dark Roast, including your controllers! Take any POJO 
 _Controller:_
 ```java
 import com.darkroast.mvc.Controller;
-import com.darkroast.mvc.annotations.Path;
+import com.darkroast.com.darkroast.annotations.Path;
 import com.darkroast.mvc.results.Result;
 
 import static com.darkroast.mvc.results.Results.*;

@@ -1,9 +1,10 @@
 package com.darkroast.dispatch;
 
+import com.darkroast.annotations.Path;
 import com.darkroast.mvc.Controller;
-import com.darkroast.mvc.annotations.Path;
-import com.darkroast.mvc.annotations.PathLiteral;
-import com.darkroast.results.Result;
+import com.darkroast.literals.PathLiteral;
+import com.darkroast.mvc.Result;
+import com.darkroast.mvc.Route;
 import com.darkroast.results.RythmTemplate;
 
 import javax.enterprise.context.RequestScoped;

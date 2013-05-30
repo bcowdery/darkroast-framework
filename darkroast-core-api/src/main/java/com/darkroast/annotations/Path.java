@@ -1,4 +1,4 @@
-package com.darkroast.mvc.annotations;
+package com.darkroast.annotations;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;

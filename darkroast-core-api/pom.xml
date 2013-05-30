@@ -7,7 +7,7 @@
 
     <parent>
         <groupId>com.darkroast</groupId>
-        <artifactId>doulaco-parent</artifactId>
+        <artifactId>darkroast-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -39,21 +39,6 @@
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- Dependencies -->
-        <dependency>
-            <groupId>org.rythmengine</groupId>
-            <artifactId>rythm-engine</artifactId>
-            <version>1.0-b8</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>1.9</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

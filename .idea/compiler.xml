@@ -23,6 +23,8 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="darkroast-core-api" />
+        <module name="darkroast-core-impl" />
+        <module name="example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -30,6 +32,7 @@
       <module name="darkroast-core-impl" target="1.7" />
       <module name="darkroast-framework" target="1.7" />
       <module name="darkroast-parent" target="1.7" />
+      <module name="example" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

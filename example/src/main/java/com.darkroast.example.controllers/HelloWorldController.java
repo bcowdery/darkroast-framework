@@ -1,8 +1,8 @@
-package com.darkroast.controllers;
+package com.darkroast.example.controllers;
 
+import com.darkroast.annotations.Path;
 import com.darkroast.mvc.Controller;
-import com.darkroast.mvc.annotations.Path;
-import com.darkroast.results.Result;
+import com.darkroast.mvc.Result;
 
 import static com.darkroast.results.Results.*;
 
@@ -13,7 +13,7 @@ import static com.darkroast.results.Results.*;
  * @since 29-05-2013
  */
 @Path("rythm")
-public class RythmController implements Controller {
+public class HelloWorldController implements Controller {
 
     @Path("index")
     public Result index() {
