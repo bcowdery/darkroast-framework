@@ -8,7 +8,7 @@
     <artifactId>darkroast-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Darkroast parent project</name>
+    <name>darkroast parent project</name>
 
     <modules>
         <module>darkroast-core-api</module>
