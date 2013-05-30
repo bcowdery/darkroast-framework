@@ -1,5 +1,7 @@
 package com.darkroast.literals;
 
+import com.darkroast.annotations.Path;
+
 import javax.enterprise.util.AnnotationLiteral;
 
 /**
