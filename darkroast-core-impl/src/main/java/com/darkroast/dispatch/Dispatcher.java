@@ -30,16 +30,24 @@ import java.lang.reflect.Method;
 @RequestScoped
 public class Dispatcher {
 
+    ServletContext servletContext;
     @Inject @Any Instance<Controller> controllers;
 
     public Dispatcher() {
     }
 
-    public void dispatch(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
+    public void dispatch(HttpServletRequest request, HttpServletResponse response) {
+
+        System.out.println("dispatching");
+
         Route route = new RouteParser().parseRoute(request.getServletPath());
+
+        System.out.println(route);
 
         Annotation path = new PathLiteral(route.getController());
         Controller controller = controllers.select(path).get();
+
+        System.out.println(controller);
 
         // try and invoke action
         Method action = getActionMethod(controller, route);
@@ -53,8 +61,13 @@ public class Dispatcher {
         }
 
 
+        System.out.println("result: " + result);
+
         // render result
         if (result != null) {
+
+            System.out.println("rendering result");
+
             Result out = result instanceof Result
                     ? (Result) result
                     : new RythmTemplate("@result").param("result", result);
