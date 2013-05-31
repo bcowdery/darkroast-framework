@@ -17,15 +17,15 @@ import java.util.logging.Logger;
  */
 @Named
 @ApplicationScoped
-public class Application {
+public class ApplicationImpl implements Application {
 
-    private static final Logger LOG = Logger.getLogger(Application.class.getName());
+    private static final Logger LOG = Logger.getLogger(ApplicationImpl.class.getName());
 
     private CompositeConfiguration config;
     private Environment environment;
     private String version;
 
-    public Application() {
+    public ApplicationImpl() {
         config = new CompositeConfiguration();
         _addConfiguration("darkroast.properties");
         _addConfiguration("darkroast-default.properties");

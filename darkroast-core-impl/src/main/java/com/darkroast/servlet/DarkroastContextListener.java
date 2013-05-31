@@ -1,6 +1,6 @@
 package com.darkroast.servlet;
 
-import com.darkroast.config.Application;
+import com.darkroast.config.ApplicationImpl;
 import com.darkroast.servlet.annotations.DestroyedLiteral;
 import com.darkroast.servlet.annotations.InitializedLiteral;
 import com.darkroast.servlet.events.BootstrapEvent;
@@ -29,7 +29,8 @@ public class DarkroastContextListener implements ServletContextListener {
     private static final String FILTER_NAME = "Darkroast Dispatch Filter";
 
     @Inject BeanManager beanManager;
-    @Inject Application application;
+    @Inject
+    ApplicationImpl application;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {

@@ -1,6 +1,6 @@
 package com.darkroast.dispatch;
 
-import com.darkroast.config.Application;
+import com.darkroast.config.ApplicationImpl;
 import com.darkroast.mvc.Route;
 
 import javax.enterprise.context.RequestScoped;
@@ -25,7 +25,8 @@ public class RouteParser {
     private static Pattern routePattern = null;
 
     @Inject HttpServletRequest request;
-    @Inject Application application;
+    @Inject
+    ApplicationImpl application;
 
     @Produces
     @RequestScoped

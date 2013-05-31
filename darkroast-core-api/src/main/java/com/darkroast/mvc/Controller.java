@@ -6,4 +6,5 @@ package com.darkroast.mvc;
  * @author Brian Cowdery
  * @since 29-05-2013
  */
-public interface Controller { }
+public interface Controller {
+}
