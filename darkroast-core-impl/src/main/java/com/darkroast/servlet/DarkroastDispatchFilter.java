@@ -47,8 +47,12 @@ public class DarkroastDispatchFilter implements Filter {
         try {
             if (!response.isCommitted()) {
                 dispatcher.dispatch(request, response);
+            }
+
+            if (!response.isCommitted()) {
                 chain.doFilter(request, response);
             }
+
         } finally {
             beanManager.fireEvent(new ServletRequestEvent(requestContext), DestroyedLiteral.INSTANCE);
         }

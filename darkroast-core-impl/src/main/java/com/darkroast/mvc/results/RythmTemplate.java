@@ -1,9 +1,9 @@
-package com.darkroast.results;
+package com.darkroast.mvc.results;
 
-import com.darkroast.mvc.Result;
 import org.rythmengine.RythmEngine;
 
-import java.io.OutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,34 +13,35 @@ import java.util.Map;
  * @author Brian Cowdery
  * @since 29-05-2013
  */
-public class RythmTemplate implements Result {
+public class RythmTemplate extends AbstractContentResult {
 
     private static RythmEngine engine = null;
 
     private String view;
     private Map<String, Object> params = new HashMap<>();
 
+
     public RythmTemplate(String view) {
         this.view = view;
     }
 
+
     @Override
-    public RythmTemplate param(String key, Object object) {
+    public RythmTemplate add(String key, Object object) {
         params.put(key, object);
         return this;
     }
 
     @Override
-    public RythmTemplate params(Map<String, Object> objects) {
+    public RythmTemplate add(Map<String, Object> objects) {
         objects.putAll(objects);
         return this;
     }
 
     @Override
-    public void render(String contentPath, OutputStream out) {
-        System.out.println("Rendering from " + contentPath);
-
-        getRythmEngine(contentPath).render(out, view, params);
+    public void render(HttpServletResponse response, String contentPath) throws IOException {
+        response.setContentType(contentType);
+        getRythmEngine(contentPath).render(response.getOutputStream(), view, params);
     }
 
     private RythmEngine getRythmEngine(String contentPath) {

@@ -2,20 +2,18 @@ package com.darkroast.dispatch;
 
 import com.darkroast.annotations.Path;
 import com.darkroast.mvc.Controller;
-import com.darkroast.literals.PathLiteral;
-import com.darkroast.mvc.Result;
+import com.darkroast.annotations.PathLiteral;
+import com.darkroast.mvc.results.ContentResult;
+import com.darkroast.mvc.results.Result;
 import com.darkroast.mvc.Route;
-import com.darkroast.results.RythmTemplate;
+import com.darkroast.mvc.results.RythmTemplate;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -80,13 +78,18 @@ public class Dispatcher {
         if (object instanceof Result) {
             result = (Result) object;
         } else {
-            result = new RythmTemplate("@result").param("result", object);
+            result = new RythmTemplate("@model").add("model", object);
+        }
+
+        if (object instanceof ContentResult) {
+            String contentType = ((ContentResult) result).getContentType();
+            response.setContentType(contentType);
         }
 
         OutputStream out = null;
         try {
+            result.render(response, servletPath);
             out = response.getOutputStream();
-            result.render(servletPath, out);
 
         } finally {
             if (out != null) {
