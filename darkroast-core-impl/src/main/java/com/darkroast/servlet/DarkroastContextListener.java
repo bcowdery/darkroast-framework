@@ -9,13 +9,17 @@ import com.darkroast.servlet.events.ServerContextEvent;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.EnumSet;
 import java.util.logging.Logger;
 
 /**
- * DarkroastServletInitilizer
+ * Publishes {@link BootstrapEvent} and {@link ServletContextEvent} events on container startup and
+ * applies the {@link DarkroastDispatchFilter} to the configured URL pattern.
  *
  * @author Brian Cowdery
  * @since 30-05-2013
@@ -23,6 +27,7 @@ import java.util.logging.Logger;
 public class DarkroastContextListener implements ServletContextListener {
 
     private static final Logger LOG = Logger.getLogger(DarkroastContextListener.class.getName());
+    private static final String FILTER_NAME = "Darkroast Dispatch Filter";
 
     @Inject Application application;
 
@@ -30,8 +35,7 @@ public class DarkroastContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
 
-        loadApplicationProperties();
-        logStartup();
+        filterMapping(servletContext);
 
         BeanManager beanManager = BeanManagerUtils.getBeanManager();
         beanManager.fireEvent(new ServerContextEvent(servletContext), InitializedLiteral.INSTANCE);
@@ -47,19 +51,25 @@ public class DarkroastContextListener implements ServletContextListener {
         beanManager.fireEvent(new BootstrapEvent(servletContext), DestroyedLiteral.INSTANCE);
     }
 
+    /**
+     * Apply the filter mapping for the {@link DarkroastDispatchFilter} dispatch filter.
+     *
+     * @param servletContext servlet context
+     */
+    private void filterMapping(ServletContext servletContext) {
+        String urlPattern = application.getConfig().getString("darkroast.dispatch.urlpattern");
 
-    public void loadApplicationProperties() {
-        // todo: load darkroast-default.properties from implementation jar
-        // todo: look for a darkroast.properties file on the webapp classpath, merge with loaded properties
-        // todo: setup the application object and config file properties.
-    }
+        FilterRegistration.Dynamic  filter = servletContext.addFilter(FILTER_NAME, DarkroastDispatchFilter.class);
+        filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, urlPattern);
 
-    public void logStartup() {
         LOG.info("\n"
                 + "  ____             _    ____                 _    \n"
                 + " |  _ \\  __ _ _ __| | _|  _ \\ ___   __ _ ___| |_ \n"
                 + " | | | |/ _` | '__| |/ / |_) / _ \\ / _` / __| __| \n"
                 + " | |_| | (_| | |  |   <|  _ < (_) | (_| \\__ \\ |_ \n"
                 + " |____/ \\__,_|_|  |_|\\_\\_| \\_\\___/ \\__,_|___/\\__|");
+
+        LOG.info("Darkroast " + application.getVersion() + ", " + application.getEnvironment());
+        LOG.info("Started on " + servletContext.getContextPath() + urlPattern);
     }
 }
