@@ -3,6 +3,10 @@ package com.darkroast.dispatch;
 import com.darkroast.config.Application;
 import com.darkroast.mvc.Route;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,18 +24,15 @@ public class RouteParser {
 
     private static Pattern routePattern = null;
 
-    private Pattern getRoutePattern() {
-        if (routePattern == null) {
-            String regex = Application.getConfig().getString(ROUTE, ROUTE_DEFAULT);
-            routePattern = Pattern.compile(regex);
-        }
-        return routePattern;
-    }
+    @Inject HttpServletRequest request;
+    @Inject Application application;
 
-    public Route parseRoute(String path) {
+    @Produces
+    @RequestScoped
+    public Route parseRoute() {
         Route route = new Route();
 
-        Matcher matcher = getRoutePattern().matcher(path);
+        Matcher matcher = getRoutePattern().matcher(request.getServletPath());
 
         if (matcher.matches()) {
             String controller = matcher.group("controller");
@@ -45,5 +46,13 @@ public class RouteParser {
         }
 
         return route;
+    }
+
+    public Pattern getRoutePattern() {
+        if (routePattern == null) {
+            String regex = application.getConfig().getString(ROUTE, ROUTE_DEFAULT);
+            routePattern = Pattern.compile(regex);
+        }
+        return routePattern;
     }
 }

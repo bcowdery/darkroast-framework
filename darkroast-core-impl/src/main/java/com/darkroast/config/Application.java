@@ -4,15 +4,18 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 /**
  * Holds information about the Application.
  *
  * @author Brian Cowdery
  * @since 06-03-2013
  */
+@Named
+@ApplicationScoped
 public class Application {
-
-    private static final Application INSTANCE = new Application();
 
     private static final String ENVIRONMENT = "darkroast.environment";
     private static final String ENVIRONMENT_DEFAULT = "DEVELOPMENT";
@@ -25,7 +28,7 @@ public class Application {
     private String version;
 
 
-    private Application() {
+    public Application() {
         try {
             config = new PropertiesConfiguration("darkroast.properties");
         } catch (ConfigurationException e) {
@@ -37,19 +40,15 @@ public class Application {
     }
 
 
-    public static Application getInstance() {
-        return INSTANCE;
+    public Configuration getConfig() {
+        return config;
     }
 
-    public static Configuration getConfig() {
-        return getInstance().config;
+    public Environment getEnvironment() {
+        return environment;
     }
 
-    public static Environment getEnvironment() {
-        return getInstance().environment;
-    }
-
-    public static String getVersion() {
-        return getInstance().version;
+    public String getVersion() {
+        return version;
     }
 }

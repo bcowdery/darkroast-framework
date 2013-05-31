@@ -31,15 +31,14 @@ import java.lang.reflect.Method;
  * @since 29-05-2013
  */
 @Named
+@RequestScoped
 public class Dispatcher {
 
+    @Inject Route route;
     @Inject ServletContext servletContext;
     @Inject @Any Instance<Controller> controllers;
 
-
     public void dispatch(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Route route = new RouteParser().parseRoute(request.getServletPath());
-
         Annotation path = new PathLiteral(route.getController());
         Controller controller = controllers.select(path).get();
 
