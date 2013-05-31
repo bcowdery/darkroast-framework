@@ -13,6 +13,10 @@
         </before>
     </ordering>
 
+    <listener>
+        <listener-class>com.darkroast.servlet.DarkroastContextListener</listener-class>
+    </listener>
+
     <filter>
         <display-name>Darkroast Context Filter</display-name>
         <filter-name>Darkroast Context Filter</filter-name>
