@@ -1,6 +1,5 @@
 package com.darkroast.servlet;
 
-import com.darkroast.cdi.BeanManagerUtils;
 import com.darkroast.dispatch.Dispatcher;
 import com.darkroast.servlet.annotations.DestroyedLiteral;
 import com.darkroast.servlet.annotations.InitializedLiteral;
@@ -27,6 +26,7 @@ import java.io.IOException;
  */
 public class DarkroastDispatchFilter implements Filter {
 
+    @Inject BeanManager beanManager;
     @Inject Dispatcher dispatcher;
 
     @Override
@@ -37,7 +37,6 @@ public class DarkroastDispatchFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
 
-        BeanManager beanManager = BeanManagerUtils.getBeanManager();
         ServletRequestContext requestContext = new ServletRequestContext(req, resp);
         beanManager.fireEvent(new ServletRequestEvent(requestContext), InitializedLiteral.INSTANCE);
 

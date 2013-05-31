@@ -1,6 +1,5 @@
 package com.darkroast.servlet;
 
-import com.darkroast.cdi.BeanManagerUtils;
 import com.darkroast.config.Application;
 import com.darkroast.servlet.annotations.DestroyedLiteral;
 import com.darkroast.servlet.annotations.InitializedLiteral;
@@ -29,6 +28,7 @@ public class DarkroastContextListener implements ServletContextListener {
     private static final Logger LOG = Logger.getLogger(DarkroastContextListener.class.getName());
     private static final String FILTER_NAME = "Darkroast Dispatch Filter";
 
+    @Inject BeanManager beanManager;
     @Inject Application application;
 
     @Override
@@ -37,7 +37,6 @@ public class DarkroastContextListener implements ServletContextListener {
 
         filterMapping(servletContext);
 
-        BeanManager beanManager = BeanManagerUtils.getBeanManager();
         beanManager.fireEvent(new ServerContextEvent(servletContext), InitializedLiteral.INSTANCE);
         beanManager.fireEvent(new BootstrapEvent(servletContext), InitializedLiteral.INSTANCE);
     }
@@ -46,7 +45,6 @@ public class DarkroastContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
 
-        BeanManager beanManager = BeanManagerUtils.getBeanManager();
         beanManager.fireEvent(new ServerContextEvent(servletContext), DestroyedLiteral.INSTANCE);
         beanManager.fireEvent(new BootstrapEvent(servletContext), DestroyedLiteral.INSTANCE);
     }
