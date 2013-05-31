@@ -4,8 +4,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-    <display-name>DarkRoast Example</display-name>
-    <description>The DarkRoast framework example application.</description>
+    <display-name>Darkroast Example</display-name>
+    <description>The Darkroast framework example application.</description>
 
     <welcome-file-list>
         <welcome-file>index.htm</welcome-file>

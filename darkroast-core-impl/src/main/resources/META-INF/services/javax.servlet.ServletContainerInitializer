@@ -1,1 +1,1 @@
-com.darkroast.servlet.DarkroastBootstrapper
+com.darkroast.servlet.DarkroastContextInitializer
