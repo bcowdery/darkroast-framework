@@ -18,19 +18,14 @@ import javax.servlet.ServletContext;
 @ApplicationScoped
 public class ServletObjectsHolder {
 
-    private ThreadLocal<ServletRequestContext> requestContext = new ThreadLocal<ServletRequestContext>() {
+    private final ThreadLocal<ServletRequestContext> requestContext = new ThreadLocal<ServletRequestContext>() {
         @Override
         protected ServletRequestContext initialValue() {
             return null;
         }
     };
 
-    private ThreadLocal<ServletContext> servletContext = new ThreadLocal<ServletContext>() {
-        @Override
-        protected ServletContext initialValue() {
-            return null;
-        }
-    };
+    private ServletContext servletContext;
 
 
     public ServletObjectsHolder() {
@@ -42,22 +37,22 @@ public class ServletObjectsHolder {
     }
 
     public ServletContext getServletContext() {
-        return servletContext.get();
+        return servletContext;
     }
 
-    public void applicationStartup(@Observes @Initialized ServerContextEvent e) {
-        servletContext.set(e.getServletContext());
+    protected void applicationStartup(@Observes @Initialized ServerContextEvent e) {
+        servletContext = e.getServletContext();
     }
 
-    public void applicationShutdown(@Observes @Destroyed ServerContextEvent e) {
-        servletContext.remove();
+    protected void applicationShutdown(@Observes @Destroyed ServerContextEvent e) {
+        servletContext = null;
     }
 
-    public void requestInitialized(@Observes @Initialized ServletRequestEvent e) {
+    protected void requestInitialized(@Observes @Initialized ServletRequestEvent e) {
         requestContext.set(e.getRequestContext());
     }
 
-    public void requestDestroyed(@Observes @Destroyed ServletRequestEvent e) {
+    protected void requestDestroyed(@Observes @Destroyed ServletRequestEvent e) {
         requestContext.remove();
     }
 }

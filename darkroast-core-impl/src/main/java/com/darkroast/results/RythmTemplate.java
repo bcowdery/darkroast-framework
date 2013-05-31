@@ -38,6 +38,8 @@ public class RythmTemplate implements Result {
 
     @Override
     public void render(String contentPath, OutputStream out) {
+        System.out.println("Rendering from " + contentPath);
+
         getRythmEngine(contentPath).render(out, view, params);
     }
 

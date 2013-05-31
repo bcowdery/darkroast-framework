@@ -15,15 +15,17 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * DarkroastContextFilter
+ * DarkroastDispatchFilter
  *
  * @author Brian Cowdery
  * @since 30-05-2013
  */
-public class DarkroastContextFilter implements Filter {
+public class DarkroastDispatchFilter implements Filter {
 
     @Inject Dispatcher dispatcher;
 
@@ -32,17 +34,19 @@ public class DarkroastContextFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
 
         BeanManager beanManager = BeanManagerUtils.getBeanManager();
-        ServletRequestContext requestContext = new ServletRequestContext(request, response);
-
+        ServletRequestContext requestContext = new ServletRequestContext(req, resp);
         beanManager.fireEvent(new ServletRequestEvent(requestContext), InitializedLiteral.INSTANCE);
+
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
 
         try {
             if (!response.isCommitted()) {
-                System.out.println(dispatcher);
+                dispatcher.dispatch(request, response);
                 chain.doFilter(request, response);
             }
         } finally {

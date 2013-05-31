@@ -9,13 +9,17 @@ import com.darkroast.results.RythmTemplate;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,27 +31,17 @@ import java.lang.reflect.Method;
  * @since 29-05-2013
  */
 @Named
-@RequestScoped
 public class Dispatcher {
 
-    ServletContext servletContext;
+    @Inject ServletContext servletContext;
     @Inject @Any Instance<Controller> controllers;
 
-    public Dispatcher() {
-    }
 
-    public void dispatch(HttpServletRequest request, HttpServletResponse response) {
-
-        System.out.println("dispatching");
-
+    public void dispatch(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Route route = new RouteParser().parseRoute(request.getServletPath());
-
-        System.out.println(route);
 
         Annotation path = new PathLiteral(route.getController());
         Controller controller = controllers.select(path).get();
-
-        System.out.println(controller);
 
         // try and invoke action
         Method action = getActionMethod(controller, route);
@@ -60,25 +54,7 @@ public class Dispatcher {
             throw new RuntimeException("Action method does not exist on class!");
         }
 
-
-        System.out.println("result: " + result);
-
-        // render result
-        if (result != null) {
-
-            System.out.println("rendering result");
-
-            Result out = result instanceof Result
-                    ? (Result) result
-                    : new RythmTemplate("@result").param("result", result);
-
-            try {
-                out.render(servletContext.getRealPath("/"), response.getOutputStream());
-
-            } catch (IOException e) {
-                throw new RuntimeException("Error rendering result", e);
-            }
-        }
+        renderResult(response, servletContext.getRealPath("/"), result);
     }
 
     private Method getActionMethod(Controller controller, Route route) {
@@ -95,5 +71,29 @@ public class Dispatcher {
         }
 
         throw new RuntimeException("Action not found!");
+    }
+
+    private void renderResult(HttpServletResponse response, String servletPath, Object object) throws IOException {
+        if (object == null)
+            return;
+
+        Result result;
+        if (object instanceof Result) {
+            result = (Result) object;
+        } else {
+            result = new RythmTemplate("@result").param("result", object);
+        }
+
+        OutputStream out = null;
+        try {
+            out = response.getOutputStream();
+            result.render(servletPath, out);
+
+        } finally {
+            if (out != null) {
+                out.flush();
+                out.close();
+            }
+        }
     }
 }

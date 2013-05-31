@@ -5,6 +5,7 @@ import com.darkroast.servlet.annotations.InitializedLiteral;
 import com.darkroast.servlet.events.ServerContextEvent;
 
 import javax.enterprise.inject.spi.BeanManager;
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

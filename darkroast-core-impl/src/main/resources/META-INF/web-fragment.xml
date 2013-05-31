@@ -16,7 +16,7 @@
     <filter>
         <display-name>Darkroast Context Filter</display-name>
         <filter-name>Darkroast Context Filter</filter-name>
-        <filter-class>com.darkroast.servlet.DarkroastContextFilter</filter-class>
+        <filter-class>com.darkroast.servlet.DarkroastDispatchFilter</filter-class>
     </filter>
 
     <filter-mapping>
