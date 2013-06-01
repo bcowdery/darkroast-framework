@@ -8,6 +8,8 @@ package com.darkroast.mvc.results;
  */
 public class Results {
 
+    // todo: figure out how to make this accessible from the API jar without needing to move result implementation
+
     public static ContentResult view(String view) {
         return new RythmTemplate(view);
     }

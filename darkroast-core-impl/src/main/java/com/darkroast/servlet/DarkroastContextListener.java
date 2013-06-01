@@ -1,6 +1,7 @@
 package com.darkroast.servlet;
 
-import com.darkroast.config.ApplicationImpl;
+import com.darkroast.config.ApplicationConfig;
+import com.darkroast.config.ApplicationConfigImpl;
 import com.darkroast.servlet.annotations.DestroyedLiteral;
 import com.darkroast.servlet.annotations.InitializedLiteral;
 import com.darkroast.servlet.events.BootstrapEvent;
@@ -29,8 +30,7 @@ public class DarkroastContextListener implements ServletContextListener {
     private static final String FILTER_NAME = "Darkroast Dispatch Filter";
 
     @Inject BeanManager beanManager;
-    @Inject
-    ApplicationImpl application;
+    @Inject ApplicationConfig applicationConfig;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
@@ -56,7 +56,7 @@ public class DarkroastContextListener implements ServletContextListener {
      * @param servletContext servlet context
      */
     private void filterMapping(ServletContext servletContext) {
-        String urlPattern = application.getConfig().getString("darkroast.dispatch.urlpattern");
+        String urlPattern = applicationConfig.getString("darkroast.dispatch.urlpattern");
 
         FilterRegistration.Dynamic  filter = servletContext.addFilter(FILTER_NAME, DarkroastDispatchFilter.class);
         filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, urlPattern);
@@ -68,7 +68,8 @@ public class DarkroastContextListener implements ServletContextListener {
                 + " | |_| | (_| | |  |   <|  _ < (_) | (_| \\__ \\ |_ \n"
                 + " |____/ \\__,_|_|  |_|\\_\\_| \\_\\___/ \\__,_|___/\\__|");
 
-        LOG.info("Darkroast " + application.getVersion() + ", " + application.getEnvironment());
+        String version = applicationConfig.getString("darkroast.version");
+        LOG.info("Darkroast " + version + ", " + applicationConfig.getEnvironment());
         LOG.info("Started on " + servletContext.getContextPath() + urlPattern);
     }
 }
