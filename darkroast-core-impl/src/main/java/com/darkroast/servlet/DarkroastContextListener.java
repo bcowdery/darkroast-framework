@@ -1,7 +1,6 @@
 package com.darkroast.servlet;
 
 import com.darkroast.config.ApplicationConfig;
-import com.darkroast.config.ApplicationConfigImpl;
 import com.darkroast.servlet.annotations.DestroyedLiteral;
 import com.darkroast.servlet.annotations.InitializedLiteral;
 import com.darkroast.servlet.events.BootstrapEvent;
@@ -19,7 +18,8 @@ import java.util.logging.Logger;
 
 /**
  * Publishes {@link BootstrapEvent} and {@link ServletContextEvent} events on container startup and
- * applies the {@link DarkroastDispatchFilter} to the configured URL pattern.
+ * applies the {@link DarkroastServletEventFilter} and {@link DarkroastDispatchFilter} servlet filters
+ * to the configured URL patterns.
  *
  * @author Brian Cowdery
  * @since 30-05-2013
@@ -27,16 +27,26 @@ import java.util.logging.Logger;
 public class DarkroastContextListener implements ServletContextListener {
 
     private static final Logger LOG = Logger.getLogger(DarkroastContextListener.class.getName());
-    private static final String FILTER_NAME = "Darkroast Dispatch Filter";
+
+    private static final String DISPATCH_FILTER = "Darkroast Dispatch Filter";
+    private static final String EVENT_FILTER = "Darkroast Servlet Event Filter";
+
+    private static final EnumSet<DispatcherType> DISPATCHER_TYPES = EnumSet.of(
+            DispatcherType.REQUEST,
+            DispatcherType.FORWARD,
+            DispatcherType.ASYNC
+    );
+
 
     @Inject BeanManager beanManager;
     @Inject ApplicationConfig applicationConfig;
+
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
 
-        filterMapping(servletContext);
+        addFilterMappings(servletContext);
 
         beanManager.fireEvent(new ServerContextEvent(servletContext), InitializedLiteral.INSTANCE);
         beanManager.fireEvent(new BootstrapEvent(servletContext), InitializedLiteral.INSTANCE);
@@ -51,15 +61,20 @@ public class DarkroastContextListener implements ServletContextListener {
     }
 
     /**
-     * Apply the filter mapping for the {@link DarkroastDispatchFilter} dispatch filter.
+     * Apply the filter mapping for the {@link DarkroastServletEventFilter} and
+     * {@link DarkroastDispatchFilter} servlet filters.
      *
      * @param servletContext servlet context
      */
-    private void filterMapping(ServletContext servletContext) {
+    protected void addFilterMappings(ServletContext servletContext) {
+
+        FilterRegistration.Dynamic requestFilter = servletContext.addFilter(EVENT_FILTER, DarkroastServletEventFilter.class);
+        requestFilter.addMappingForUrlPatterns(DISPATCHER_TYPES, true, "/*");
+
         String urlPattern = applicationConfig.getString("darkroast.dispatch.urlpattern");
 
-        FilterRegistration.Dynamic  filter = servletContext.addFilter(FILTER_NAME, DarkroastDispatchFilter.class);
-        filter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, urlPattern);
+        FilterRegistration.Dynamic dispatchFilter = servletContext.addFilter(DISPATCH_FILTER, DarkroastDispatchFilter.class);
+        dispatchFilter.addMappingForUrlPatterns(DISPATCHER_TYPES, true, urlPattern);
 
         LOG.info("\n"
                 + "  ____             _    ____                 _    \n"

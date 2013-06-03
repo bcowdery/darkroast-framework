@@ -25,6 +25,11 @@ public class RythmTemplate extends AbstractContentResult {
         this.view = view;
     }
 
+    public RythmTemplate(String view, Object model) {
+        this.view = view;
+        this.params.put("model", model);
+    }
+
 
     @Override
     public RythmTemplate add(String key, Object object) {
