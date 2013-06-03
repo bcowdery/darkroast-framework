@@ -17,5 +17,5 @@ package com.darkroast.config;
  * @since 06-03-2013
  */
 public enum Environment {
-    DEV, TEST, PRODUCTION
+    DEV, TEST, PROD
 }

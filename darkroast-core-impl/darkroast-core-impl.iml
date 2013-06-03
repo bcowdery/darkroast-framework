@@ -17,7 +17,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.annotation:jsr250-api:1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-web-api:6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.rythmengine:rythm-engine:1.0-b8" level="project" />
+    <orderEntry type="library" name="Maven: org.rythmengine:rythm-engine:1.0-b9" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jdt.core.compiler:ecj:3.7.2" level="project" />
     <orderEntry type="library" name="Maven: com.stevesoft.pat:pat:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />

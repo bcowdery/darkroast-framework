@@ -24,7 +24,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="darkroast-core-api" />
     <orderEntry type="module" module-name="darkroast-core-impl" />
-    <orderEntry type="library" name="Maven: org.rythmengine:rythm-engine:1.0-b8" level="project" />
+    <orderEntry type="library" name="Maven: org.rythmengine:rythm-engine:1.0-b9" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jdt.core.compiler:ecj:3.7.2" level="project" />
     <orderEntry type="library" name="Maven: com.stevesoft.pat:pat:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />

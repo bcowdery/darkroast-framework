@@ -4,20 +4,19 @@ import com.darkroast.config.ApplicationConfig;
 import com.darkroast.servlet.annotations.DestroyedLiteral;
 import com.darkroast.servlet.annotations.InitializedLiteral;
 import com.darkroast.servlet.events.BootstrapEvent;
-import com.darkroast.servlet.events.ServerContextEvent;
+import com.darkroast.servlet.events.ServletContextEvent;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.EnumSet;
 import java.util.logging.Logger;
 
 /**
- * Publishes {@link BootstrapEvent} and {@link ServletContextEvent} events on container startup and
+ * Publishes {@link BootstrapEvent} and {@link javax.servlet.ServletContextEvent} events on container startup and
  * applies the {@link DarkroastServletEventFilter} and {@link DarkroastDispatchFilter} servlet filters
  * to the configured URL patterns.
  *
@@ -43,20 +42,20 @@ public class DarkroastContextListener implements ServletContextListener {
 
 
     @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
+    public void contextInitialized(javax.servlet.ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
 
         addFilterMappings(servletContext);
 
-        beanManager.fireEvent(new ServerContextEvent(servletContext), InitializedLiteral.INSTANCE);
+        beanManager.fireEvent(new ServletContextEvent(servletContext), InitializedLiteral.INSTANCE);
         beanManager.fireEvent(new BootstrapEvent(servletContext), InitializedLiteral.INSTANCE);
     }
 
     @Override
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+    public void contextDestroyed(javax.servlet.ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
 
-        beanManager.fireEvent(new ServerContextEvent(servletContext), DestroyedLiteral.INSTANCE);
+        beanManager.fireEvent(new ServletContextEvent(servletContext), DestroyedLiteral.INSTANCE);
         beanManager.fireEvent(new BootstrapEvent(servletContext), DestroyedLiteral.INSTANCE);
     }
 

@@ -86,7 +86,7 @@ public class HelloWorldController implements Controller {
 
     @Path("index")
     public Result index() {
-        return view("index.html".add("what", "Rythm");
+        return view("index.html").add("what", "Rythm");
     }
 }
 ```
@@ -98,6 +98,8 @@ _index.html:_
     <title>Hello World!</title>
 </head>
 <body>
+    @args String what
+
     <p>
         Got @what?
     </p>
@@ -110,4 +112,69 @@ by other frameworks like [Play!](http://www.playframework.com/), Rythm is easy t
 fast.
 
 
+## Custom Rythm Tags
 
+Using Rythm you can easily create specific tags for your application. This is because **Every template can be infoked
+as a tag**. Templates are resolved from the template root (/WEB-INF/content by default), and mapped into a tag name
+by stripping off the file extension and converting path separators <code>/</code> into dots <code>.</code>.
+
+
+For example suppose you have a template with the following content located at <code>/WEB-INF/util/hello.html</code>:
+
+```
+Hello from tag!
+```
+
+From the any other template or even the template itself you can invoke the template as a tag (_You must invoke the
+tag as a method with <code>util.hello()</code>_):
+
+```
+@util.hello()
+```
+
+
+### Java Tag Interface
+
+Rythm is so fast that there is very little performance benefit to writing a Java tag that produces output with
+StringBuilder or String concatenation.
+
+However, Java tags are still very useful for third party developers wanting to package tags in jar files. DarkRoast provides
+a convenient mechanism for discovering and registering tags as managed beans through the use of the <code>@RythmTag</code>
+annotation.
+
+```java
+import com.darkroast.rythm.annotations.RythmTag;
+import org.rythmengine.template.ITag;
+import org.rythmengine.template.JavaTagBase;
+
+@RythmTag
+public class Hello extends JavaTagBase {
+
+    public Hello() {
+    }
+
+    @Override
+    public String __getName() {
+        return "hello";
+    }
+
+    @Override
+    protected void call(ITag.__ParameterList params, __Body body) {
+        Object o = params.getDefault();
+        String name = o == null ? "who" : o.toString();
+        p("Hello ").p(name);
+    }
+}
+```
+
+```html
+<body>
+    <p>
+        @hello("Darkroast")
+    </p>
+</body>
+```
+
+### Inline Tags
+
+TODO: Write this later... Reference https://github.com/greenlaw110/play-rythm/blob/master/documentation/manual/user_guide.textile

@@ -14,7 +14,7 @@
           <element id="archive" name="darkroast-core-impl.jar">
             <element id="module-output" name="darkroast-core-impl" />
           </element>
-          <element id="library" level="project" name="Maven: org.rythmengine:rythm-engine:1.0-b8" />
+          <element id="library" level="project" name="Maven: org.rythmengine:rythm-engine:1.0-b9" />
           <element id="library" level="project" name="Maven: org.eclipse.jdt.core.compiler:ecj:3.7.2" />
           <element id="library" level="project" name="Maven: com.stevesoft.pat:pat:1.5.3" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.1" />

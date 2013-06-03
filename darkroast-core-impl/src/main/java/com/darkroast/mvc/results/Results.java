@@ -15,7 +15,7 @@ public class Results {
     }
 
     public static ContentResult view(String view, Object model) {
-        return new RythmTemplate(view).add("model", model);
+        return new RythmTemplate(view, model);
     }
 
     public static Result error(int errorCode) {

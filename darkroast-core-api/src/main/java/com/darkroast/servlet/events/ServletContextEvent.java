@@ -3,19 +3,19 @@ package com.darkroast.servlet.events;
 import javax.servlet.ServletContext;
 
 /**
- * ServerContextEvent
+ * ServletContextEvent
  *
  * @author Brian Cowdery
  * @since 30-05-2013
  */
-public class ServerContextEvent {
+public class ServletContextEvent {
 
     private ServletContext servletContext;
 
-    public ServerContextEvent() {
+    public ServletContextEvent() {
     }
 
-    public ServerContextEvent(ServletContext servletContext) {
+    public ServletContextEvent(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
 

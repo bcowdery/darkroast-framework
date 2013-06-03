@@ -2,7 +2,7 @@ package com.darkroast.servlet.context;
 
 import com.darkroast.servlet.annotations.Destroyed;
 import com.darkroast.servlet.annotations.Initialized;
-import com.darkroast.servlet.events.ServerContextEvent;
+import com.darkroast.servlet.events.ServletContextEvent;
 import com.darkroast.servlet.events.ServletRequestEvent;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -40,11 +40,11 @@ public class ServletObjectsHolder {
         return servletContext;
     }
 
-    protected void applicationStartup(@Observes @Initialized ServerContextEvent e) {
+    protected void applicationStartup(@Observes @Initialized ServletContextEvent e) {
         servletContext = e.getServletContext();
     }
 
-    protected void applicationShutdown(@Observes @Destroyed ServerContextEvent e) {
+    protected void applicationShutdown(@Observes @Destroyed ServletContextEvent e) {
         servletContext = null;
     }
 
