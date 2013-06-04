@@ -4,6 +4,8 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -14,6 +16,8 @@ import java.lang.reflect.Type;
  * @since 03-06-2013
  */
 public class ModelBeanProducer {
+
+    @Inject HttpServletRequest request;
 
     @Produces
     @Dependent
@@ -28,6 +32,8 @@ public class ModelBeanProducer {
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Could not create new instance.");
         }
+
+        // todo: populate bean with request parameters - use Jackson or BeanUtils (jackson is faster!)
 
         return o;
     }

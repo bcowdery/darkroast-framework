@@ -73,7 +73,7 @@ public class ApplicationBootstrap {
 DarkRoast is all about the beans. Take any POJO and annotate it with a <code>@Path</code> to turn it into a RequestScoped
 MVC controller. Action names are inferred from the URL, or can be explicitly mapped with another <code>@Path</code>.
 
-_Controller:_
+__Controller:__
 ```java
 import com.darkroast.annotations.Path;
 import com.darkroast.mvc.Controller;
@@ -91,7 +91,7 @@ public class HelloWorldController implements Controller {
 }
 ```
 
-_index.html:_
+__index.html:__
 ```html
 <html>
 <head>
@@ -110,6 +110,106 @@ _index.html:_
 Views are rendered using the [Rythm Template Engine](http://rythmengine.org/). Inspired by Microsoft's Razor and used
 by other frameworks like [Play!](http://www.playframework.com/), Rythm is easy to use, easy to extend and blazing
 fast.
+
+## View Models
+
+### Passing a Model to the View
+
+View models can be passed to the view layer via the action <code>Result</code> object. Any result type that renders
+content will accept model parameters for rendering data back to the user. These results are also chainable, making it
+simple to add many model objects to the result.
+
+```java
+@Path("index")
+public Result index() {
+    return view("index.html")
+        .add("who", "Chuck Norris")
+        .add("what", "a unicycle")
+        .add("why", "his beard");
+}
+```
+
+Declare the <code>@args</code> in your Rythm template.
+
+```html
+@args String who
+@args String what
+@args String why
+
+<p>
+    @who, @what and @why.
+</p>
+```
+
+### Data Binding
+
+Databinding is handled through a CDI extension that dynamically produces instances of objects for injectable fields
+annotated with <code>@Model</code>, and attempts to populate them using request parameters.
+
+Model view beans
+
+* A model bean must have a public default constructor
+* A model bean must follow JavaBean property naming conventions
+* Request parameters names must match the JavaBean property name as accessible from the Controller.
+
+__Model:__
+```java
+public class Person {
+    private String name;
+
+    public Person() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+__Controller:__
+```java
+import com.darkroast.annotations.Path;
+import com.darkroast.mvc.Controller;
+import com.darkroast.mvc.results.Result;
+
+import static com.darkroast.mvc.results.Results.*;
+
+@Path("person")
+public class PersonController implements Controller {
+
+    @Inject @Model Person person;
+
+    @Path("index")
+    public Result index() {
+        return view("index.html").add("person", person);
+    }
+
+    @Path("hello")
+    public Result hello() {
+        System.out.println("Hello " + person.getName());
+        return view("hello.html").add("person", person);
+    }
+}
+```
+
+__View:__
+```
+@args Person person
+
+@if (person.getName() != null) {
+   Hello @person.getName()!
+}
+
+<form action="/person/hello">
+    <input type="text" name="person.name" value="@person.name"/>
+</form>
+```
+
+
 
 
 ## Custom Rythm Tags
