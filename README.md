@@ -114,8 +114,8 @@ fast.
 
 ## Custom Rythm Tags
 
-Using Rythm you can easily create specific tags for your application. This is because **Every template can be infoked
-as a tag**. Templates are resolved from the template root (/WEB-INF/content by default), and mapped into a tag name
+Using Rythm you can easily create specific tags for your application. This is because **Every template can be invoked
+as a tag**. Templates are resolved from the template root (<code>/WEB-INF/content</code> by default), and mapped into a tag name
 by stripping off the file extension and converting path separators <code>/</code> into dots <code>.</code>.
 
 
@@ -125,8 +125,7 @@ For example suppose you have a template with the following content located at <c
 Hello from tag!
 ```
 
-From the any other template or even the template itself you can invoke the template as a tag (_You must invoke the
-tag as a method with <code>util.hello()</code>_):
+From the any other template or even the template itself you can invoke the template as a tag:
 
 ```
 @util.hello()
