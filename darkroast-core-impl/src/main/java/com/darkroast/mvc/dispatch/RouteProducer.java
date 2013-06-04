@@ -1,7 +1,6 @@
-package com.darkroast.dispatch;
+package com.darkroast.mvc.dispatch;
 
 import com.darkroast.config.ApplicationConfig;
-import com.darkroast.config.ApplicationConfigImpl;
 import com.darkroast.mvc.Route;
 
 import javax.enterprise.context.RequestScoped;

@@ -1,4 +1,4 @@
-package com.darkroast.model;
+package com.darkroast.mvc.model;
 
 import com.darkroast.annotations.ViewModel;
 import org.apache.commons.beanutils.BeanUtils;

@@ -1,4 +1,4 @@
-package com.darkroast.dispatch;
+package com.darkroast.mvc.dispatch;
 
 import com.darkroast.annotations.Path;
 import com.darkroast.annotations.PathLiteral;

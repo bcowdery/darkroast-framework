@@ -18,7 +18,7 @@ import java.io.OutputStream;
 /**
  * Renders the result of a dispatched action to the servlet response output stream.
  *
- * @see com.darkroast.dispatch.Dispatcher
+ * @see com.darkroast.mvc.dispatch.Dispatcher
  *
  * @author Brian Cowdery
  * @since 30-05-2013

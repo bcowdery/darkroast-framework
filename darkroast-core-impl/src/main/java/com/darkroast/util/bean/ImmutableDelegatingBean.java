@@ -27,7 +27,7 @@ import java.util.Set;
  *     }
  * </pre>
  *
- * @see com.darkroast.model.ModelBeanExtension
+ * @see com.darkroast.mvc.model.ModelBeanExtension
  *
  * @author Brian Cowdery
  * @since 04-06-2013

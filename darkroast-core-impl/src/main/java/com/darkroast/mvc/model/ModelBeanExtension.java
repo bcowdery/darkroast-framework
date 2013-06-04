@@ -1,11 +1,10 @@
-package com.darkroast.model;
+package com.darkroast.mvc.model;
 
 import com.darkroast.annotations.ViewModel;
 import com.darkroast.annotations.ViewModelLiteral;
 import com.darkroast.util.bean.ImmutableDelegatingBean;
 import org.apache.deltaspike.core.api.literal.AnyLiteral;
 import org.apache.deltaspike.core.api.literal.DefaultLiteral;
-import org.apache.deltaspike.core.api.literal.ModelLiteral;
 import org.apache.deltaspike.core.util.bean.BeanBuilder;
 
 import javax.enterprise.event.Observes;
