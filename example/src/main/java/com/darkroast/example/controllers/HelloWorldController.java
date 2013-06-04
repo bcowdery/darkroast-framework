@@ -4,7 +4,7 @@ import com.darkroast.annotations.Path;
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.results.Result;
 
-import static com.darkroast.mvc.results.Results.*;
+import static com.darkroast.mvc.results.Results.view;
 
 /**
  * RythmController
