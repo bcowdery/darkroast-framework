@@ -1,4 +1,4 @@
-package com.darkroast.rythm.tags;
+package com.darkroast.example.tags;
 
 import com.darkroast.rythm.annotations.RythmTag;
 import org.rythmengine.template.ITag;

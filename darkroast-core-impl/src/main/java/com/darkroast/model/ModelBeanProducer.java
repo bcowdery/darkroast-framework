@@ -1,26 +1,24 @@
 package com.darkroast.model;
 
-import com.darkroast.annotations.ViewModel;
-
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Produces instances of JavaBeans for annotated {@link ViewModel} fields.
+ * Produces instances of JavaBeans for annotated {@link Model} fields.
  *
  * @author Brian Cowdery
  * @since 03-06-2013
  */
-public class ViewModelProducer {
+public class ModelBeanProducer {
 
     @Produces
-    @ViewModel
     @Dependent
+    @Model
     public Object resolveViewModel(InjectionPoint ip) {
-
         Class<?> type = resolveExpectedType(ip);
         Object o;
         try {
@@ -33,7 +31,6 @@ public class ViewModelProducer {
 
         return o;
     }
-
 
     private Class<?> resolveExpectedType(final InjectionPoint ip) {
         Type t = ip.getType();

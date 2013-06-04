@@ -1,8 +1,12 @@
 package com.darkroast.example.controllers;
 
 import com.darkroast.annotations.Path;
+import com.darkroast.example.model.Person;
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.results.Result;
+
+import javax.enterprise.inject.Model;
+import javax.inject.Inject;
 
 import static com.darkroast.mvc.results.Results.view;
 
@@ -15,8 +19,11 @@ import static com.darkroast.mvc.results.Results.view;
 @Path("rythm")
 public class HelloWorldController implements Controller {
 
+    @Inject @Model Person person;
+
     @Path("index")
     public Result index() {
+        System.out.println(person);
         return view("index.html", "Rythm");
     }
 }

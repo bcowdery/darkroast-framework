@@ -8,6 +8,7 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,7 +27,7 @@ import java.util.Set;
  *     }
  * </pre>
  *
- * @see com.darkroast.model.ModelBindingExtension
+ * @see com.darkroast.model.ModelBeanExtension
  *
  * @author Brian Cowdery
  * @since 04-06-2013
@@ -45,16 +46,13 @@ public class ImmutableDelegatingBean<T> implements Bean<T> {
     private final Set<InjectionPoint> injectionPoints;
 
     public ImmutableDelegatingBean(Bean<Object> delegate, BeanBuilder<T> beanBuilder) {
-
-        // todo: create defensive copies of collections - do it later because i'm lazy and just got this crap working ...
-
         this.delegate = delegate;
         this.beanClass = delegate.getBeanClass();
         this.name = beanBuilder.getName();
-        this.types = beanBuilder.getTypes();
-        this.qualifiers = beanBuilder.getQualifiers();
+        this.types = new HashSet<>(beanBuilder.getTypes());
+        this.qualifiers = new HashSet<>(beanBuilder.getQualifiers());
         this.scope = beanBuilder.getScope();
-        this.stereotypes = beanBuilder.getStereotypes();
+        this.stereotypes = new HashSet<>(beanBuilder.getStereotypes());
         this.alternative = beanBuilder.isAlternative();
         this.nullable = beanBuilder.isNullable();
         this.injectionPoints = delegate.getInjectionPoints();
@@ -69,7 +67,6 @@ public class ImmutableDelegatingBean<T> implements Bean<T> {
     public String getName() {
         return name;
     }
-
 
     @Override
     public Set<Type> getTypes() {

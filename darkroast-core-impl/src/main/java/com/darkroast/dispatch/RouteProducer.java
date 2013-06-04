@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * @author Brian Cowdery
  * @since 29-05-2013
  */
-public class RouteParser {
+public class RouteProducer {
 
     private static final String ROUTE = "darkroast.application.route";
     private static final String ROUTE_DEFAULT = "^\\/(?<controller>\\w+)\\/?(?<action>\\w*)\\/?(?<id>\\w*)";
