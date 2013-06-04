@@ -1,5 +1,7 @@
 package com.darkroast.model;
 
+import com.darkroast.annotations.ViewModel;
+import com.darkroast.annotations.ViewModelLiteral;
 import com.darkroast.util.bean.ImmutableDelegatingBean;
 import org.apache.deltaspike.core.api.literal.AnyLiteral;
 import org.apache.deltaspike.core.api.literal.DefaultLiteral;
@@ -8,7 +10,6 @@ import org.apache.deltaspike.core.util.bean.BeanBuilder;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Model;
 import javax.enterprise.inject.spi.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
@@ -20,7 +21,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * An extension that delegates creation of {@link Model} beans to the  {@link ModelBeanProducer}
+ * An extension that delegates creation of {@link ViewModel} beans to the  {@link ModelBeanProducer}
  * by dynamically registering new {@link ImmutableDelegatingBean} producer beans for annotated injection
  * points.
  *
@@ -42,7 +43,7 @@ public class ModelBeanExtension implements Extension {
 
     void processViewModelProducer(@Observes ProcessProducerMethod<Object, ModelBeanProducer> event) {
         if (event.getAnnotatedProducerMethod().getBaseType().equals(Object.class)
-                && event.getAnnotatedProducerMethod().isAnnotationPresent(Model.class)) {
+                && event.getAnnotatedProducerMethod().isAnnotationPresent(ViewModel.class)) {
             setProducer(event.getBean());
         }
     }
@@ -50,7 +51,7 @@ public class ModelBeanExtension implements Extension {
     void processViewModelProducerInverted(@Observes ProcessProducerMethod<ModelBeanProducer, Object> event) {
         AnnotatedMethod<?> method = event.getAnnotatedProducerMethod();
         if (event.getAnnotatedProducerMethod().getBaseType().equals(Object.class)
-                && event.getAnnotatedProducerMethod().isAnnotationPresent(Model.class)) {
+                && event.getAnnotatedProducerMethod().isAnnotationPresent(ViewModel.class)) {
             setProducer(event.getBean());
         }
     }
@@ -59,11 +60,11 @@ public class ModelBeanExtension implements Extension {
         for (InjectionPoint ip : event.getInjectionTarget().getInjectionPoints()) {
             Annotated annotated = ip.getAnnotated();
 
-            if (annotated.isAnnotationPresent(Model.class)) {
+            if (annotated.isAnnotationPresent(ViewModel.class)) {
                 Collection<Annotation> allowed = Arrays.asList(
                         new DefaultLiteral(),
                         new AnyLiteral(),
-                        annotated.getAnnotation(Model.class)
+                        annotated.getAnnotation(ViewModel.class)
                 );
 
                 for (Annotation q : ip.getQualifiers()) {
@@ -98,7 +99,7 @@ public class ModelBeanExtension implements Extension {
         if (producer != null) {
             for (Class<?> type : targetTypes) {
                 LOG.info("Installing " + type.getSimpleName() + " @Producer " + producer.getBeanClass());
-                event.addBean(createProducerBean(producer, type, new ModelLiteral(), beanManager));
+                event.addBean(createProducerBean(producer, type, ViewModelLiteral.INSTANCE, beanManager));
             }
         }
     }

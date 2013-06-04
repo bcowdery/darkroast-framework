@@ -144,7 +144,7 @@ Declare the <code>@args</code> in your Rythm template.
 ### Data Binding
 
 Databinding is handled through a CDI extension that dynamically produces instances of objects for injectable fields
-annotated with <code>@Model</code>, and attempts to populate them using request parameters.
+annotated with <code>@ViewModel</code>, and attempts to populate them using request parameters.
 
 Model view beans
 
@@ -173,6 +173,7 @@ public class Person {
 __Controller:__
 ```java
 import com.darkroast.annotations.Path;
+import com.darkroast.annotations.ViewModel;
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.results.Result;
 
@@ -181,7 +182,7 @@ import static com.darkroast.mvc.results.Results.*;
 @Path("person")
 public class PersonController implements Controller {
 
-    @Inject @Model Person person;
+    @Inject @ViewModel Person person;
 
     @Path("index")
     public Result index() {
