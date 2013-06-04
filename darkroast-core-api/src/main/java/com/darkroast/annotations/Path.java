@@ -7,7 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Path
+ * Marks a class as an MVC controller that can be invoked at a URL. If used to
+ * annotate a method on a controller, the method will be invoked as the action
+ * for the path.
  *
  * @author Brian Cowdery
  * @since 29-05-2013
