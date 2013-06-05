@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Initialized
+ * Initialized event qualifier.
  *
  * @author Brian Cowdery
  * @since 30-05-2013

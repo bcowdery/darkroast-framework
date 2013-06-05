@@ -75,7 +75,7 @@ MVC controller. Action names are inferred from the URL, or can be explicitly map
 
 __Controller:__
 ```java
-import com.darkroast.annotations.Path;
+import com.darkroast.mvc.annotations.Path;
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.results.Result;
 
@@ -172,8 +172,8 @@ public class Person {
 
 __Controller:__
 ```java
-import com.darkroast.annotations.Path;
-import com.darkroast.annotations.ViewModel;
+import com.darkroast.mvc.annotations.Path;
+import com.darkroast.mvc.annotations.ViewModel;
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.results.Result;
 

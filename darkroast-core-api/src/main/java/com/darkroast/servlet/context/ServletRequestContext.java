@@ -5,7 +5,7 @@ import javax.servlet.ServletResponse;
 import java.io.Serializable;
 
 /**
- * ServletRequestContext
+ * Holder for request lifecycle {@link ServletRequest} and {@link ServletResponse} objects.
  *
  * @author Brian Cowdery
  * @since 30-05-2013

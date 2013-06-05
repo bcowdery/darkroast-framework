@@ -1,6 +1,6 @@
 package com.darkroast.mvc.model;
 
-import com.darkroast.annotations.ViewModel;
+import com.darkroast.mvc.annotations.ViewModel;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.enterprise.context.Dependent;

@@ -3,7 +3,7 @@ package com.darkroast.servlet.events;
 import javax.servlet.ServletContext;
 
 /**
- * ServletContextEvent
+ * Event object for servlet context initialization and destruction events.
  *
  * @author Brian Cowdery
  * @since 30-05-2013

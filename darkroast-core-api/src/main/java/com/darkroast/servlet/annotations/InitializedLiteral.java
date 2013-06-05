@@ -3,7 +3,7 @@ package com.darkroast.servlet.annotations;
 import javax.enterprise.util.AnnotationLiteral;
 
 /**
- * InitializedLiteral
+ * Literal for {@link Initialized}
  *
  * @author Brian Cowdery
  * @since 30-05-2013

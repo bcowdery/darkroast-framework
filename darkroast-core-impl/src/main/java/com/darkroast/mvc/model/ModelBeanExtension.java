@@ -1,7 +1,7 @@
 package com.darkroast.mvc.model;
 
-import com.darkroast.annotations.ViewModel;
-import com.darkroast.annotations.ViewModelLiteral;
+import com.darkroast.mvc.annotations.ViewModel;
+import com.darkroast.mvc.annotations.ViewModelLiteral;
 import com.darkroast.util.bean.ImmutableDelegatingBean;
 import org.apache.deltaspike.core.api.literal.AnyLiteral;
 import org.apache.deltaspike.core.api.literal.DefaultLiteral;

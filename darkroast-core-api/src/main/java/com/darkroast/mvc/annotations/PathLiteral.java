@@ -1,9 +1,9 @@
-package com.darkroast.annotations;
+package com.darkroast.mvc.annotations;
 
 import javax.enterprise.util.AnnotationLiteral;
 
 /**
- * Literal implementation of {@link Path} for finding qualified beans.
+ * Literal for {@link Path}
  *
  * @author Brian Cowdery
  * @since 29-05-2013

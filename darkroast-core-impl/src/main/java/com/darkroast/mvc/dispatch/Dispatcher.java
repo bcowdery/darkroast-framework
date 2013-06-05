@@ -1,7 +1,7 @@
 package com.darkroast.mvc.dispatch;
 
-import com.darkroast.annotations.Path;
-import com.darkroast.annotations.PathLiteral;
+import com.darkroast.mvc.annotations.Path;
+import com.darkroast.mvc.annotations.PathLiteral;
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.Route;
 import com.darkroast.mvc.results.Result;

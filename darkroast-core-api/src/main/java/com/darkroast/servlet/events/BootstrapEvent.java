@@ -3,7 +3,7 @@ package com.darkroast.servlet.events;
 import javax.servlet.ServletContext;
 
 /**
- * BootstrapEvent
+ * Event object for bootstrap events.
  *
  * @author Brian Cowdery
  * @since 31-05-2013

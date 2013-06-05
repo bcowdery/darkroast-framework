@@ -1,9 +1,9 @@
-package com.darkroast.annotations;
+package com.darkroast.mvc.annotations;
 
 import javax.enterprise.util.AnnotationLiteral;
 
 /**
- * ViewModelLiteral
+ * Literal for {@link ViewModel}
  *
  * @author Brian Cowdery
  * @since 04-06-2013

@@ -3,7 +3,7 @@ package com.darkroast.servlet.events;
 import com.darkroast.servlet.context.ServletRequestContext;
 
 /**
- * ServletRequestEvent
+ * Event object for servlet request initialization and destruction events.
  *
  * @author Brian Cowdery
  * @since 30-05-2013
