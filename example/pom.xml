@@ -41,6 +41,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.darkroast</groupId>
+            <artifactId>darkroast-rythm-tags</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- Java EE 6 web profile -->
         <dependency>
             <groupId>javax.enterprise</groupId>

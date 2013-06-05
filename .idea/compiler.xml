@@ -25,6 +25,7 @@
         <module name="darkroast-core-api" />
         <module name="darkroast-core-impl" />
         <module name="darkroast-example-webapp" />
+        <module name="darkroast-rythm-tags" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -32,6 +33,7 @@
       <module name="darkroast-core-impl" target="1.7" />
       <module name="darkroast-example-webapp" target="1.7" />
       <module name="darkroast-parent" target="1.7" />
+      <module name="darkroast-rythm-tags" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

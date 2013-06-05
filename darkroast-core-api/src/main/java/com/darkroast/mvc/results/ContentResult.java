@@ -19,7 +19,7 @@ public interface ContentResult extends Result {
      * @param contentType content MIME type
      * @return Chainable result object
      */
-    Result contentType(String contentType);
+    ContentResult contentType(String contentType);
 
     /**
      * Adds an object to the result for rendering.
@@ -28,7 +28,7 @@ public interface ContentResult extends Result {
      * @param object object to add
      * @return Chainable result object
      */
-    Result add(String key, Object object);
+    ContentResult add(String key, Object object);
 
     /**
      * Adds many objects to the result for rendering.
@@ -36,5 +36,5 @@ public interface ContentResult extends Result {
      * @param objects list of objects to add.
      * @return Chainable result object
      */
-    Result add(Map<String, Object> objects);
+    ContentResult add(Map<String, Object> objects);
 }

@@ -23,6 +23,9 @@
           <element id="library" level="project" name="Maven: com.stevesoft.pat:pat:1.5.3" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.1" />
           <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.1.27" />
+          <element id="archive" name="darkroast-rythm-tags.jar">
+            <element id="module-output" name="darkroast-rythm-tags" />
+          </element>
         </element>
       </element>
     </root>

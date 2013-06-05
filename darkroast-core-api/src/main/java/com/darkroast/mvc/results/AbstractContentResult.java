@@ -15,7 +15,7 @@ public abstract class AbstractContentResult implements ContentResult {
     }
 
     @Override
-    public Result contentType(String contentType) {
+    public ContentResult contentType(String contentType) {
         this.contentType = contentType;
         return this;
     }

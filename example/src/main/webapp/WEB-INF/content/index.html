@@ -7,12 +7,13 @@
 <body>
 
     @args String model
+    @args com.darkroast.example.model.Person person
 
     <p>
         Got @model ??
     </p>
 
-    @hello("Darkroast")
+    @input(name="person.name", value=person.getName())
 
 </body>
 </html>

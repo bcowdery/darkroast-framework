@@ -23,7 +23,8 @@ public class HelloWorldController implements Controller {
 
     @Path("index")
     public Result index() {
-        System.out.println("Person name: " + person.getName());
-        return view("index.html", "Rythm");
+        return view("index.html")
+                .add("model", "Rythm")
+                .add("person", person);
     }
 }

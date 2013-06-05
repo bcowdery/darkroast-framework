@@ -15,6 +15,7 @@
         <module>darkroast-core-api</module>
         <module>darkroast-core-impl</module>
         <module>example</module>
+        <module>darkroast-rythm-tags</module>
     </modules>
 
     <build>
