@@ -10,7 +10,7 @@ import javax.enterprise.event.Observes;
 import javax.servlet.ServletContext;
 
 /**
- * ServletObjectsHolder
+ * Holder object for the {@link ServletContext} object.
  *
  * @author Brian Cowdery
  * @since 30-05-2013

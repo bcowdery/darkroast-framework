@@ -6,7 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 /**
- * Darkroast Application Settings.
+ * Darkroast application settings.
  *
  * @author Brian Cowdery
  * @since 04-06-2013

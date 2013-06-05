@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * ServletObjectsProducer
+ * Produces servlet objects {@link ServletContext}, {@link ServletRequest} and {@link ServletResponse}
+ * for injection.
+ *
+ * @see com.darkroast.servlet.DarkroastContextListener
+ * @see com.darkroast.servlet.DarkroastServletEventFilter
  *
  * @author Brian Cowdery
  * @since 30-05-2013
