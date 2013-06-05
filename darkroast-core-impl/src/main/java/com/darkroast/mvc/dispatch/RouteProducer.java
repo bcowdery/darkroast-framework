@@ -1,6 +1,6 @@
 package com.darkroast.mvc.dispatch;
 
-import com.darkroast.config.ApplicationConfig;
+import com.darkroast.config.ApplicationSettings;
 import com.darkroast.mvc.Route;
 
 import javax.enterprise.context.RequestScoped;
@@ -19,13 +19,10 @@ import java.util.regex.Pattern;
  */
 public class RouteProducer {
 
-    private static final String ROUTE = "darkroast.application.route";
-    private static final String ROUTE_DEFAULT = "^\\/(?<controller>\\w+)\\/?(?<action>\\w*)\\/?(?<id>\\w*)";
-
     private static Pattern routePattern = null;
 
     @Inject HttpServletRequest request;
-    @Inject ApplicationConfig applicationConfig;
+    @Inject ApplicationSettings applicationSettings;
 
     @Produces
     @RequestScoped
@@ -50,8 +47,7 @@ public class RouteProducer {
 
     public Pattern getRoutePattern() {
         if (routePattern == null) {
-            String regex = applicationConfig.getString(ROUTE, ROUTE_DEFAULT);
-            routePattern = Pattern.compile(regex);
+            routePattern = Pattern.compile(applicationSettings.getDispatchRouteRegex());
         }
         return routePattern;
     }

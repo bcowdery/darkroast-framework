@@ -1,6 +1,7 @@
 package com.darkroast.rythm;
 
-import com.darkroast.config.ApplicationConfig;
+import com.darkroast.config.ApplicationSettings;
+import com.darkroast.rythm.annotations.RythmTag;
 import com.darkroast.servlet.annotations.Initialized;
 import com.darkroast.servlet.events.ServletContextEvent;
 import org.rythmengine.RythmEngine;
@@ -18,7 +19,19 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * RythmEngineFactory
+ * Initializes the <code>RythmEngine</code> and registers <code>ITemplate</code> tag
+ * implementations annotated with {@link RythmTag}.
+ *
+ * darkroast.properties:
+ * <pre>
+ *  # rythm template home directory
+ *  darkroast.rythm.template.home=/WEB-INF/content
+ *
+ *  # rythm engine mode
+ *  darkroast.rythm.engine.mode=prod
+ * </pre>
+ *
+ * @see com.darkroast.config.ApplicationSettingsBean
  *
  * @author Brian Cowdery
  * @since 03-06-2013
@@ -30,14 +43,14 @@ public class RythmEngineFactory {
 
     private static RythmEngine engine;
 
-    @Inject ApplicationConfig applicationConfig;
-    @Inject @Any Instance<ITemplate> tags;
+    @Inject ApplicationSettings applicationSettings;
+    @Inject @RythmTag Instance<ITemplate> tags;
 
     protected void initializeRythmEngine(@Observes @Initialized ServletContextEvent e) {
-        String engineMode = applicationConfig.getString("darkroast.rythm.engine.mode");
+        String engineMode = applicationSettings.getRythmEngineMode();
         LOG.info("Initializing Rythm Template Engine in " + engineMode + " mode");
 
-        String templateHome = applicationConfig.getString("darkroast.rythm.template.home");
+        String templateHome = applicationSettings.getRythmTemplateHome();
         String contextRoot = e.getServletContext().getRealPath("/");
         Path path = Paths.get(contextRoot, templateHome);
         LOG.info("Template dir = " + path);

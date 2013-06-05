@@ -8,14 +8,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * RythmTag
+ * Rythm <code>ITemplate</code> tag implementations to be registered with the
+ * <code>RythmEngine</code> at startup.
  *
  * @author Brian Cowdery
  * @since 03-06-2013
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Documented
 public @interface RythmTag {
 }

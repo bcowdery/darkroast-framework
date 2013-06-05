@@ -1,6 +1,6 @@
 package com.darkroast.servlet;
 
-import com.darkroast.config.ApplicationConfig;
+import com.darkroast.config.ApplicationSettings;
 import com.darkroast.servlet.annotations.DestroyedLiteral;
 import com.darkroast.servlet.annotations.InitializedLiteral;
 import com.darkroast.servlet.events.BootstrapEvent;
@@ -38,7 +38,7 @@ public class DarkroastContextListener implements ServletContextListener {
 
 
     @Inject BeanManager beanManager;
-    @Inject ApplicationConfig applicationConfig;
+    @Inject ApplicationSettings applicationSettings;
 
 
     @Override
@@ -66,11 +66,10 @@ public class DarkroastContextListener implements ServletContextListener {
      * @param servletContext servlet context
      */
     protected void addFilterMappings(ServletContext servletContext) {
-
         FilterRegistration.Dynamic requestFilter = servletContext.addFilter(EVENT_FILTER, DarkroastServletEventFilter.class);
         requestFilter.addMappingForUrlPatterns(DISPATCHER_TYPES, true, "/*");
 
-        String urlPattern = applicationConfig.getString("darkroast.dispatch.urlpattern");
+        String urlPattern = applicationSettings.getDispatchUrlPattern();
 
         FilterRegistration.Dynamic dispatchFilter = servletContext.addFilter(DISPATCH_FILTER, DarkroastDispatchFilter.class);
         dispatchFilter.addMappingForUrlPatterns(DISPATCHER_TYPES, true, urlPattern);
@@ -82,8 +81,7 @@ public class DarkroastContextListener implements ServletContextListener {
                 + " | |_| | (_| | |  |   <|  _ < (_) | (_| \\__ \\ |_ \n"
                 + " |____/ \\__,_|_|  |_|\\_\\_| \\_\\___/ \\__,_|___/\\__|");
 
-        String version = applicationConfig.getString("darkroast.version");
-        LOG.info("Darkroast " + version + ", " + applicationConfig.getEnvironment());
+        LOG.info("Darkroast " + applicationSettings.getVersion() + ", " + applicationSettings.getEnvironment());
         LOG.info("Started on " + servletContext.getContextPath() + urlPattern);
     }
 }

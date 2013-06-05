@@ -2,9 +2,11 @@ package com.darkroast.example.controllers;
 
 import com.darkroast.annotations.Path;
 import com.darkroast.annotations.ViewModel;
+import com.darkroast.config.ApplicationSettingsBean;
 import com.darkroast.example.model.Person;
 import com.darkroast.mvc.Controller;
 import com.darkroast.mvc.results.Result;
+import org.apache.deltaspike.core.api.config.ConfigResolver;
 
 import javax.inject.Inject;
 

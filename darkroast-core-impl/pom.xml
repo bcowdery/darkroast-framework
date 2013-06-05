@@ -50,16 +50,16 @@
 
         <!-- Dependencies -->
         <dependency>
-            <groupId>org.rythmengine</groupId>
-            <artifactId>rythm-engine</artifactId>
-            <version>1.0-b9</version>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-api</artifactId>
+            <version>0.3-incubating</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>1.9</version>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-impl</artifactId>
+            <version>0.3-incubating</version>
             <scope>compile</scope>
         </dependency>
 
@@ -71,16 +71,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.deltaspike.core</groupId>
-            <artifactId>deltaspike-core-api</artifactId>
-            <version>0.3-incubating</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.deltaspike.core</groupId>
-            <artifactId>deltaspike-core-impl</artifactId>
-            <version>0.3-incubating</version>
+            <groupId>org.rythmengine</groupId>
+            <artifactId>rythm-engine</artifactId>
+            <version>1.0-b9</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

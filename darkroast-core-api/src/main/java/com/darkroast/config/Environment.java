@@ -11,7 +11,7 @@ package com.darkroast.config;
 /**
  * The applications current runtime environment.
  *
- * @see ApplicationConfig#getEnvironment();
+ * @see ApplicationSettings#getEnvironment();
  *
  * @author Brian Cowdery
  * @since 06-03-2013
