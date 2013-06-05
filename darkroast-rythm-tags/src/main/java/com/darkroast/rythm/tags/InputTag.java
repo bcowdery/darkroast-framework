@@ -2,16 +2,27 @@ package com.darkroast.rythm.tags;
 
 import com.darkroast.rythm.annotations.RythmTag;
 import org.rythmengine.template.ITag;
-import org.rythmengine.template.JavaTagBase;
 
 /**
- * InputTag
+ * Tag for simple input fields
+ *
+ * Usage:
+ * <pre>
+ *     @input("person.name", @person.getName());
+ *
+ *     @// accepts additional parameters in named format
+ *
+ *     @input(name: "person.name", value: @person.getName(), class: "input-large")
+ * </pre>
+ *
+ * The HTML input type can be changed by passing the optional "<code>type</code>" parameter
+ * to the @input template. Useful for rendering various HTML5 input types!
  *
  * @author Brian Cowdery
  * @since 04-06-2013
  */
 @RythmTag
-public class InputTag extends JavaTagBase {
+public class InputTag extends DynamicAttributeTag {
 
     public InputTag() {
     }
@@ -23,11 +34,12 @@ public class InputTag extends JavaTagBase {
 
     @Override
     protected void call(ITag.__ParameterList params, __Body body) {
-        Object o = params.getDefault();
+        String name = getByNameOrExpectedPosition("name", "name");
+        String value = getByNameOrExpectedPosition("value", "");
+        String type = getByNameOrExpectedPosition("type", "text");
 
-        String name = o == null ? "name" : o.toString();
-        String value = params.getByName("value", "");
-
-        p("<input type=\"text\" ").p("name=\"").p(name).p("\" value=\"").p(value).p("\" />");
+        p("<input type=\"").p(type).p("\" name=\"").p(name).p("\" value=\"").p(value).p("\" ");
+        attributes();
+        p("/>");
     }
 }
