@@ -66,6 +66,9 @@ public class ApplicationBootstrap {
 }
 ```
 
+
+---
+
 ## MVC
 
 ### Controllers
@@ -210,6 +213,40 @@ __View:__
 </form>
 ```
 
+
+---
+
+## Tag Reference
+
+Darkroast has serveral bundled tags for rendering standard HTML controls, links, and other common elements. These tags
+fully support dynamic HTML attributes, meaning you can add your CSS classes, HTML5 data attributes, placeholder
+values and whatever else you may need.
+
+For example, the following Rythm Template produces markup that is remarkably similar
+```html
+@a(href= "/some/url", class="myclass", data-toggle="tooltip", title="A link with a Bootstrap style tooltip!") {
+    <span>Hover over me</span>
+}
+```
+
+```html
+<a href="/some/url" class="myclass" data-toggle="tooltip" title="A link with a Bootstrap style tooltip!">
+    <span>Hover over me</span>
+</a>
+```
+
+#### Tags
+
+| Tag              | Expected Attributes | Example Usage  |
+| ---------------- |:-------------------:| --------------:|
+| @a | `href`, `value` or tag body | `@a("/some/url", "Link text")` |
+|    |                             | `@a(href: "/some/url", value: "Link text", class: "cssclass")` |
+|    |                             | `@a(href: "/some/url") { <span>Link text</span> } ` |
+| @input | `name`, `value`, optional `type` | `@input("person.name", "Bob Smith")` |
+|        |                                  | `@input(name: "person.name", value: "Bob Smith, class: "cssclass")` |
+|        |                                  | `@input(name: "person.email", value: @person.getEmail(), type: "email")` |
+
+> Note that even expected parameters can be omitted and the tag should still render correctly.
 
 
 
