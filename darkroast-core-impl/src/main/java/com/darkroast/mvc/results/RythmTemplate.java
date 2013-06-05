@@ -19,7 +19,6 @@ public class RythmTemplate extends AbstractContentResult {
     private String view;
     private Map<String, Object> params = new HashMap<>();
 
-
     public RythmTemplate(String view) {
         this.view = view;
     }
@@ -29,7 +28,6 @@ public class RythmTemplate extends AbstractContentResult {
         this.params.put("model", model);
     }
 
-
     @Override
     public RythmTemplate add(String key, Object object) {
         params.put(key, object);
@@ -38,7 +36,7 @@ public class RythmTemplate extends AbstractContentResult {
 
     @Override
     public RythmTemplate add(Map<String, Object> objects) {
-        objects.putAll(objects);
+        params.putAll(objects);
         return this;
     }
 
